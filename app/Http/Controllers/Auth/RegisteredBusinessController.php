@@ -50,6 +50,7 @@ class RegisteredBusinessController extends Controller
             // 'address' => $request->address,
             // etc.
         ]);
+        $user->businesses()->attach($business->id);
 
         // 3) Auto-login the new admin (optional)
         auth()->login($user);

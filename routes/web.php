@@ -7,6 +7,7 @@ use App\Http\Controllers\BusinessDashboardController;
 use App\Http\Controllers\EmployeeDashboardController;
 use App\Http\Controllers\DeveloperDashboardController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\EmployeeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,8 +19,17 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::resource('services', ServiceController::class);
+    Route::resource('employees', EmployeeController::class);
 
+    Route::get('/users/{user}/employees', [EmployeeController::class, 'index'])->name('employees.index');
+    Route::get('/business/{business}/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
+    Route::post('/business/{business}/employees', [EmployeeController::class, 'store'])->name('employees.store');
+    Route::get('/business/{business}/employees/{employee}/edit', [EmployeeController::class, 'edit'])->name('employees.edit');
+    Route::put('/business/{businessId}/employees/{id}', [EmployeeController::class, 'update'])->name('employees.update');
+    Route::delete('/business/{business}/employees/{employee}', [EmployeeController::class, 'destroy'])->name('employees.destroy');
+
+
+    Route::resource('services', ServiceController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

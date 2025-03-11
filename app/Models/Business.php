@@ -23,6 +23,12 @@ class Business extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+    public function employees()
+    {
+        return $this->belongsToMany(User::class, 'business_user')
+                    ->where('role_id', 3) // Solo empleados
+                    ->withTimestamps();
+    }
     // A Business has many services
     public function services()
     {

@@ -16,7 +16,7 @@
 <nav class="bg-white border-b border-gray-100">
     <!-- Existing links for "Dashboard," "Profile," etc. -->
 
-    @auth
+    @auth <!-- Opciones de pantalla del administrador de un negocio -->
         @if(auth()->user()->role->name === 'business_admin')
         <a href="{{ route('business.dashboard') }}" class="inline-block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             Home
@@ -25,7 +25,11 @@
         <a href="{{ route('services.index') }}" class="inline-block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             Manage Services
         </a>
-            <!-- You could add more admin links here, like Manage Employees, etc. -->
+        
+        <a href="{{ route('employees.index', ['user' => auth()->id()]) }}" 
+        class="inline-block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            Manage Employees
+        </a>
         @endif
     @endauth
 
